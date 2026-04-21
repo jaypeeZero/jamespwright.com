@@ -45,7 +45,7 @@ Errors should bubble up. Handle them at the highest layer, not scattered through
 - **Handle errors at the top** - Entry points (HTTP handlers, CLI commands, event handlers) are where errors become responses
 - **Let errors propagate** - Middle layers should not catch errors unless they can meaningfully recover
 - **Only catch when necessary** - Catch an error only if subsequent code can still run safely after the error occurred
-- **Warnings are unresolved errors** - Don't leave them around
+- **Warnings are unresolved errors** - Treat them that way
 
 ## When Catching is Appropriate
 

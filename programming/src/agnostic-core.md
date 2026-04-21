@@ -141,3 +141,15 @@ This is agnostic core applied to infrastructure: your app doesn't know or care w
 - **Portability**: Swap any backing service by changing config alone
 - **Clarity**: Business rules aren't buried in data transformation code
 - **Maintenance**: External API changes don't ripple through your codebase
+
+## Draw Consistency Boundaries
+
+Identify the smallest groups of things that must change together, and enforce rules at those boundaries. Not everything in the system needs to be consistent with everything else — only things within the same boundary do.
+
+## Scope Your Models
+
+A single unified model breaks at scale. Give each bounded context its own model. The same concept (e.g. a "user") can and should look different depending on which part of the system is working with it.
+
+## External Dependencies Are Only Up Half the Time
+
+Failures from external services are the normal path, not edge cases. Design for degraded states, timeouts, and partial failures as first-class concerns rather than exceptional ones.

@@ -5,6 +5,8 @@ title: Functional Programming
 
 # Functional Programming Principles
 
+We don't enforce a functional programming paradigm. We steal what works from it.
+
 ## Purity
 
 ```
