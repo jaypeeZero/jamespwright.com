@@ -1,0 +1,43 @@
+name: Deploy programming.jamespwright.com
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'programming/**'
+      - '.github/workflows/deploy-programming.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-programming
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build site
+        working-directory: programming
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy via rsync
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -t ed25519 jamespwright.com >> ~/.ssh/known_hosts 2>/dev/null
+
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/deploy_key" \
+            programming/_site/ \
+            ${{ secrets.DEPLOY_SSH_USER }}@jamespwright.com:~/programming.jamespwright.com/
+
+          rm ~/.ssh/deploy_key
