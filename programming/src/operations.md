@@ -60,24 +60,6 @@ nginx:80 ──▶ app:3000
 
 This means one app can be another app's backing service.
 
-## Concurrency
-
-Scale horizontally, not vertically. More processes, not bigger machines.
-
-```
-                    ┌─────────────────────────────────┐
-                    │        PROCESS TYPES            │
-                    ├─────────────────────────────────┤
-Scale ▲             │ web    ████████████████         │
-      │             │ worker ████████                 │
-      │             │ clock  ██                       │
-      │             └─────────────────────────────────┘
-```
-
-- **Different process types for different workloads** - `web` for HTTP, `worker` for background jobs, `clock` for scheduled tasks
-- **Scale each type independently** - 4 web processes, 2 workers, 1 clock
-- **Let the OS manage processes** - Don't daemonize or write PID files
-
 ## Disposability
 
 Processes should start fast and stop gracefully.
@@ -110,28 +92,6 @@ def handle_sigterm(signum, frame):
 signal.signal(signal.SIGTERM, handle_sigterm)
 ```
 
-## Dev/Prod Parity
-
-Keep development, staging, and production as similar as possible.
-
-| Gap | Wrong | Right |
-|-----|-------|-------|
-| **Time** | Weeks between deploys | Hours or minutes |
-| **Personnel** | Devs write, ops deploy | Same people do both |
-| **Tools** | SQLite dev, Postgres prod | Same everywhere |
-
-Use the same database, queue system, cache, and search backend in every environment.
-
-```yaml
-# docker-compose.yml - same services everywhere
-services:
-  db:
-    image: postgres:15
-  redis:
-    image: redis:7
-  app:
-    build: .
-```
 
 ## Logs
 
@@ -158,22 +118,3 @@ Apps should **not** manage log files. Write to stdout, one event per line.
 
 **The environment's job:** Capture, route, store, analyze
 
-## Admin Processes
-
-Database migrations, console sessions, one-time scripts — run them as one-off processes in the same environment as the app.
-
-```
-┌─────────────────────────────────────┐
-│           Same Release              │
-├─────────────────────────────────────┤
-│  web process   │   admin process    │
-│  (long-lived)  │   (one-off)        │
-│                │                    │
-│  Serves HTTP   │  Runs migration    │
-│                │  then exits        │
-└─────────────────────────────────────┘
-```
-
-- **Ship admin code with application code** - Same repo, same release
-- **Run against a release** - Same code + same config as production
-- **Never run locally against production** - Use the same environment the app runs in
