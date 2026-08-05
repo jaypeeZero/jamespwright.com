@@ -9,4 +9,12 @@
 # RewriteCond %{HTTP_HOST} ^www\. [NC]
 # RewriteRule ^(.*)$ https://jamespwright.com/$1 [R=301,L]
 
+# No auto-generated directory listings. Unlinked routes dropped into the web
+# root are reachable by URL but do not advertise their contents. A directory
+# that should be browsable opts back in with its own .htaccess containing
+# "Options +Indexes" — ebooks/ does this.
+Options -Indexes
+
+DirectoryIndex index.html
+
 ErrorDocument 404 /404.html

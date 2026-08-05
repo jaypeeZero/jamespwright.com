@@ -2,9 +2,29 @@
 
 Every push to `main` runs `.github/workflows/deploy.yml`: it builds the site
 (`npm ci && npm run build`) and `rsync`s `_site/` to DreamHost over SSH.
-`rsync --delete` means files removed from the repo are removed from the server.
 
 Deploy user: `ssh_admin_jamespwright_com`, docroot `~/jamespwright.com/`.
+
+## ⚠️ The web root is not exclusively ours — mind the protect filters
+
+The docroot used to hold ~28GB of unrelated personal files going back to 2009.
+Those were moved to `~/archive/` (outside the web root) on 2026-08-05; only
+`ebooks/` was left in place, because it is meant to stay public. Restore any of
+it with `mv ~/archive/<name> ~/jamespwright.com/`.
+
+`rsync --delete` is therefore safe *only* because of the `--filter='protect ...'`
+lines in the workflow. **Before dropping any unlinked route into the web root by
+hand, add a protect line for it** — otherwise the next deploy erases it.
+
+Currently protected: `ebooks/`, `.dh-diag` (a root-owned DreamHost symlink).
+
+## Unlinked routes
+
+`src/.htaccess` sets `Options -Indexes`, so a directory in the web root with no
+`index.html` returns 403 rather than a browsable listing. Content dropped there is
+reachable by direct URL but is not advertised, and nothing links to it from the
+site nav. A directory that *should* be browsable opts back in with its own
+`.htaccess` containing `Options +Indexes` — `ebooks/` does exactly this.
 
 ## One-time setup
 

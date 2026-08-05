@@ -32,7 +32,13 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -t ed25519 jamespwright.com >> ~/.ssh/known_hosts 2>/dev/null
 
+          # --delete prunes pages removed from the repo. The protect filters list
+          # everything in the web root that this repo does NOT build and must
+          # never delete. Add a line here before dropping any new unlinked route
+          # onto the server, or the next deploy will erase it.
           rsync -avz --delete \
+            --filter='protect /ebooks/***' \
+            --filter='protect /.dh-diag' \
             -e "ssh -i ~/.ssh/deploy_key" \
             _site/ \
             ${{ secrets.DEPLOY_SSH_USER }}@jamespwright.com:~/jamespwright.com/
