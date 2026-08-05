@@ -1,13 +1,11 @@
-# Canonical host + HTTPS.
+# No canonical-host or HTTPS rules here on purpose. DreamHost already forces
+# HTTPS and redirects the apex to www at the server level:
 #
-# LEAVE THIS BLOCK COMMENTED until the Let's Encrypt certificate exists in the
-# DreamHost panel for BOTH jamespwright.com and www.jamespwright.com. Enabling
-# it first redirects visitors to a URL with no certificate — a broken site.
+#   http://jamespwright.com/  ->  https://www.jamespwright.com/
+#   https://jamespwright.com/ ->  https://www.jamespwright.com/
 #
-# RewriteEngine On
-# RewriteCond %{HTTPS} !=on [OR]
-# RewriteCond %{HTTP_HOST} ^www\. [NC]
-# RewriteRule ^(.*)$ https://jamespwright.com/$1 [R=301,L]
+# www.jamespwright.com is canonical. Adding a www -> apex rule here would fight
+# DreamHost's apex -> www redirect and produce an infinite loop.
 
 # No auto-generated directory listings. Unlinked routes dropped into the web
 # root are reachable by URL but do not advertise their contents. A directory

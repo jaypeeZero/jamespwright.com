@@ -39,10 +39,11 @@ site nav. A directory that *should* be browsable opts back in with its own
    gh secret set DEPLOY_SSH_KEY  -R jaypeeZero/jamespwright.com < ~/.ssh/jamespwright_deploy
    gh secret set DEPLOY_SSH_USER -R jaypeeZero/jamespwright.com -b "ssh_admin_jamespwright_com"
    ```
-3. **HTTPS.** Panel → jamespwright.com → add the free Let's Encrypt certificate for
-   both `jamespwright.com` and `www.jamespwright.com`. THEN uncomment the redirect
-   block in `src/.htaccess` and push. (Enabling it before the cert exists redirects
-   visitors to a URL with no certificate = broken site.)
+3. **HTTPS — already done, nothing to do.** A Let's Encrypt certificate covering
+   both `jamespwright.com` and `www.jamespwright.com` is installed, HTTPS is forced,
+   and the apex 301s to `www` — all at the DreamHost server level. `www` is
+   canonical. Do **not** add a www→apex rule to `src/.htaccess`; it would loop
+   against DreamHost's apex→www redirect.
 
 ## Retiring programming.jamespwright.com
 
