@@ -1,6 +1,6 @@
 ---
-layout: layout.njk
 title: Error Handling
+order: 6
 ---
 
 # Error Handling

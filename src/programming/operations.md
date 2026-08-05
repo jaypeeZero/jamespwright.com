@@ -1,6 +1,6 @@
 ---
-layout: layout.njk
 title: Operations
+order: 7
 ---
 
 # Operations

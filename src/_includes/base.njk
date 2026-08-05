@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if title and title != site.title %}{{ title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{{ description or site.tagline }}">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">{{ site.title }}</a>
+    <nav class="site-nav">
+      <a href="/programming/"{% if page.url.startsWith("/programming/") %} aria-current="page"{% endif %}>Programming</a>
+      <a href="/about/"{% if page.url == "/about/" %} aria-current="page"{% endif %}>About</a>
+      <a href="/projects/"{% if page.url == "/projects/" %} aria-current="page"{% endif %}>Projects</a>
+    </nav>
+  </header>
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <p>© {{ site.title }} · <a href="{{ site.github }}">GitHub</a></p>
+  </footer>
+</body>
+</html>

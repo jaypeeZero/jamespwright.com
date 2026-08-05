@@ -1,6 +1,6 @@
 ---
-layout: layout.njk
 title: Twelve-Factor
+order: 1
 ---
 
 # The Twelve-Factor App

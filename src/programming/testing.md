@@ -1,6 +1,6 @@
 ---
-layout: layout.njk
 title: Testing
+order: 4
 ---
 
 # Testing

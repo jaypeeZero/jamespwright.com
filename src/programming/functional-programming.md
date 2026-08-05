@@ -1,6 +1,6 @@
 ---
-layout: layout.njk
 title: Functional Programming
+order: 2
 ---
 
 # Functional Programming Principles

@@ -1,6 +1,6 @@
 ---
-layout: layout.njk
-title: Home
+title: Programming
+description: Engineering ideals I keep reaching for.
 ---
 
 # My Ideals

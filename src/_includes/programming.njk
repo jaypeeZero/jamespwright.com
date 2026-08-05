@@ -1,0 +1,14 @@
+---
+layout: base.njk
+---
+<div class="section-layout">
+  <aside class="section-nav">
+    <a href="/programming/"{% if page.url == "/programming/" %} aria-current="page"{% endif %}>Overview</a>
+    {% for item in collections.programming %}
+      <a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.data.title }}</a>
+    {% endfor %}
+  </aside>
+  <article class="prose">
+    {{ content | safe }}
+  </article>
+</div>

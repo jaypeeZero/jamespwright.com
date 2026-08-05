@@ -1,6 +1,6 @@
 ---
-layout: layout.njk
 title: Agnostic Core
+order: 3
 ---
 
 # Agnostic Core, Specific Edges
