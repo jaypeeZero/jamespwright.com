@@ -1,0 +1,55 @@
+# Deploying jamespwright.com (DreamHost)
+
+Every push to `main` runs `.github/workflows/deploy.yml`: it builds the site
+(`npm ci && npm run build`) and `rsync`s `_site/` to DreamHost over SSH.
+`rsync --delete` means files removed from the repo are removed from the server.
+
+Deploy user: `ssh_admin_jamespwright_com`, docroot `~/jamespwright.com/`.
+
+## One-time setup
+
+1. **Install the deploy key.** A keypair lives at `~/.ssh/jamespwright_deploy`
+   on the dev machine. Append the public half to the server:
+   ```
+   ssh-copy-id -i ~/.ssh/jamespwright_deploy.pub ssh_admin_jamespwright_com@jamespwright.com
+   ```
+   Verify: `ssh -i ~/.ssh/jamespwright_deploy ssh_admin_jamespwright_com@jamespwright.com pwd`
+2. **Actions secrets** (repo → Settings → Secrets and variables → Actions):
+   ```
+   gh secret set DEPLOY_SSH_KEY  -R jaypeeZero/jamespwright.com < ~/.ssh/jamespwright_deploy
+   gh secret set DEPLOY_SSH_USER -R jaypeeZero/jamespwright.com -b "ssh_admin_jamespwright_com"
+   ```
+3. **HTTPS.** Panel → jamespwright.com → add the free Let's Encrypt certificate for
+   both `jamespwright.com` and `www.jamespwright.com`. THEN uncomment the redirect
+   block in `src/.htaccess` and push. (Enabling it before the cert exists redirects
+   visitors to a URL with no certificate = broken site.)
+
+## Retiring programming.jamespwright.com
+
+The programming content now builds to `/programming/` on the main site. The old
+subdomain is deployed by a *different* repo — `jamesw-mf/holding-space`, workflow
+`.github/workflows/deploy.yml`, rsyncing `my-ideals/_site/` as `mf_gh_user`. Until
+that workflow is disabled it will keep overwriting the subdomain.
+
+1. Disable or delete that workflow in `holding-space`.
+2. Put a redirect in the subdomain docroot so old links survive:
+   ```
+   # ~/programming.jamespwright.com/.htaccess
+   RewriteEngine On
+   RewriteRule ^(.*)$ https://jamespwright.com/programming/$1 [R=301,L]
+   ```
+   Note the subdomain resolves to a different DreamHost IP than the apex, so this
+   file has to be placed on that host — it is not part of this repo's rsync target.
+
+## Manual deploy
+Actions tab → Deploy jamespwright.com → Run workflow (`workflow_dispatch`).
+
+## Local preview
+`npm install` then `npm run serve` → http://localhost:8080
+
+## Notes
+- Clean URLs need no config: Eleventy emits `/about/index.html`,
+  `/programming/<slug>/index.html`, etc.
+- Programming pages order themselves in the section nav by the `order:` value in
+  each file's front matter (`eleventy.config.js`, `programming` collection).
+- `src/.htaccess` is passed through to `_site/.htaccess` on every build.

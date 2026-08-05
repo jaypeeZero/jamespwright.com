@@ -1,0 +1,15 @@
+{
+  "name": "jamespwright.com",
+  "version": "1.0.0",
+  "description": "Personal site of James P. Wright — software engineering.",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "eleventy --serve",
+    "serve": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}
