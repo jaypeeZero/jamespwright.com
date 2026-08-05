@@ -10,7 +10,7 @@ src/
   _includes/programming.njk  base + the programming section sidebar
   assets/style.css
   .htaccess              copied to the web root on build
-  index.njk  about.njk  projects.njk  404.njk
+  index.njk  projects.njk  404.njk
   programming/           the engineering ideals, one page per topic
 ```
 
