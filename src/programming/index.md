@@ -12,13 +12,13 @@ These ideologies apply outside of codebases and should affect how we do most of 
 ## Philosophy
 
 - **Effort Is the Enemy** — every line of code is a liability; so is every doc, meeting, and process
-- **Simple Over Clever** — simple is harder than clever; clever becomes legacy
-- **Separation of Concerns** — applies whether you're splitting a monolith or a meeting agenda
-- **Choose Deliberately** — rewriting from frustration and patching from fear are both traps
+- **Simplicity Over Complexity** — simple is harder than complex; put in the work to save your future self
+- **Separation of Concerns** — a place for everything, and everything in its place - applies whether you're splitting a monolith or a meeting agenda
+- **Choose Deliberately** — actions chosen by omission, indecision, or assumption are still decisions, and they contain unknown consequences
 - **80/20** — follow what you know works 80% of the time; let context override convention the other 20%
-- **Not Everything Deserves Equal Effort** — invest best thinking in the business core; commodity work (auth, storage, currency) gets off-the-shelf solutions
+- **Not Everything Deserves Equal Effort** — invest best thinking in the core; not every discussion or implementation deserves effort
 - **Deliver Value as Often as Possible** — small, verifiable increments
-- **Deliver Value as Soon as Possible** — close the gap between writing code and proving it in context
+- **Deliver Value as Soon as Possible** — close the gap between writing code and proving it in context; make choices that lead to earlier delivery
 - **Avoid Brittle Everything** — resilience comes from simplicity and loose coupling; applies to code, docs, processes, and architectures
 
 ## Principles
