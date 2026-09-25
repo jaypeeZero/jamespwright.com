@@ -23,12 +23,12 @@ These ideologies apply outside of codebases and should affect how we do most of 
 
 ## Principles
 
-- [Twelve-Factor](/twelve-factor/) - A methodology for portable, resilient, scalable applications
-- [Functional Programming](/functional-programming/) - Purity, composition, and declarative transformations
-- [Agnostic Core](/agnostic-core/) - Keep business logic free of infrastructure concerns
-- [Modeling](/modeling/) - Structure driven by the problem, not the framework
-- [Testing](/testing/) - Test behavior, not code
-- [Codebase](/codebase/) - Code, dependencies, and configuration
-- [Error Handling](/error-handling/) - Let errors bubble up, handle at the top
-- [Code Ownership](/code-ownership/) - Everyone owns everything
-- [Operations](/operations/) - Build, deploy, and run applications reliably
+- [Twelve-Factor](/programming/twelve-factor/) - A methodology for portable, resilient, scalable applications
+- [Functional Programming](/programming/functional-programming/) - Purity, composition, and declarative transformations
+- [Agnostic Core](/programming/agnostic-core/) - Keep business logic free of infrastructure concerns
+- [Modeling](/programming/modeling/) - Structure driven by the problem, not the framework
+- [Testing](/programming/testing/) - Test behavior, not code
+- [Codebase](/programming/codebase/) - Code, dependencies, and configuration
+- [Error Handling](/programming/error-handling/) - Let errors bubble up, handle at the top
+- [Code Ownership](/programming/code-ownership/) - Everyone owns everything
+- [Operations](/programming/operations/) - Build, deploy, and run applications reliably
